@@ -63,3 +63,11 @@ CREATE TABLE `oversea_position` (
                                             PRIMARY KEY (`id`)
 ) ENGINE = InnoDB AUTO_INCREMENT = 0 CHARSET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT '职位表 2022-03-29';
 
+-- 地区表
+
+-- 职位类型表
+
+-- 收藏表
+
+-- 关注表
+
