@@ -34,8 +34,8 @@ CREATE TABLE `oversea_company_admin`
 ) ENGINE = InnoDB AUTO_INCREMENT = 0 CHARSET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT '公司管理账号表 2022-03-29';
 
 -- 公司信息表
-DROP TABLE IF EXISTS `oversea_company_admin`;
-CREATE TABLE `oversea_company_admin`
+DROP TABLE IF EXISTS `oversea_company_info`;
+CREATE TABLE `oversea_company_info`
 (
     `id`         int(11) NOT NULL AUTO_INCREMENT COMMENT 'id',
     `name`       varchar(50) NOT NULL DEFAULT '' COMMENT '公司名称',
@@ -88,13 +88,13 @@ CREATE TABLE `oversea_position`
     `operator_id`      int(11) NOT NULL DEFAULT 0 COMMENT '公司普通人员账号id',
     `region`           varchar(100)  NOT NULL DEFAULT 0 COMMENT '职位所在地区',
     `pay`              varchar(100)  NOT NULL DEFAULT '' COMMENT '薪资',
-    `benefits`         text          NOT NULL DEFAULT '' COMMENT '其他福利',
+    `benefits`         text COMMENT '其他福利',
     `photo_1`          varchar(2083) NOT NULL DEFAULT '' COMMENT '照片',
     `photo_2`          varchar(2083) NOT NULL DEFAULT '' COMMENT '照片',
     `photo_3`          varchar(2083) NOT NULL DEFAULT '' COMMENT '照片',
     `photo_4`          varchar(2083) NOT NULL DEFAULT '' COMMENT '照片',
     `photo_5`          varchar(2083) NOT NULL DEFAULT '' COMMENT '照片',
-    `other`            text          NOT NULL DEFAULT '' COMMENT '其他说明',
+    `other`            text COMMENT '其他说明',
     `status`           tinyint(1) NOT NULL DEFAULT 1 COMMENT '状态：1正常，2异常',
     `created_at`       datetime(3) DEFAULT NULL COMMENT '创建时间',
     `updated_at`       datetime(3) DEFAULT NULL COMMENT '更新时间',
@@ -121,7 +121,7 @@ CREATE TABLE `oversea_collection`
 ) ENGINE = InnoDB AUTO_INCREMENT = 0 CHARSET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT '职位收藏表 2022-04-10';
 
 
--- 人员关注表
+-- 人员关注关系表
 DROP TABLE IF EXISTS `oversea_company_follow`;
 CREATE TABLE `oversea_follow`
 (
@@ -130,8 +130,35 @@ CREATE TABLE `oversea_follow`
     `user_id`          int(11) NOT NULL DEFAULT 0 COMMENT '用户id',
     `status`           tinyint(1) NOT NULL DEFAULT 1 COMMENT '状态：1正常，2异常',
     `created_at`       datetime(3) DEFAULT NULL COMMENT '创建时间',
-    `created_at`       datetime(3) DEFAULT NULL COMMENT '创建时间',
     `updated_at`       datetime(3) DEFAULT NULL COMMENT '更新时间',
     `deleted_at`       datetime(3) DEFAULT NULL COMMENT '删除时间',
     PRIMARY KEY (`id`)
-) ENGINE = InnoDB AUTO_INCREMENT = 0 CHARSET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT '人员关注表 2022-04-10';
+) ENGINE = InnoDB AUTO_INCREMENT = 0 CHARSET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT '人员关注关系表 2022-04-10';
+
+-- 验证码表
+DROP TABLE IF EXISTS `oversea_captcha`;
+CREATE TABLE `oversea_captcha`
+(
+    `id`         int(11) NOT NULL AUTO_INCREMENT COMMENT 'id',
+    `phone`      varchar(50) NOT NULL DEFAULT '' COMMENT '手机号',
+    `status`     tinyint(1) NOT NULL DEFAULT 1 COMMENT '状态：1正常，2异常',
+    `created_at` datetime(3) DEFAULT NULL COMMENT '创建时间',
+    `updated_at` datetime(3) DEFAULT NULL COMMENT '更新时间',
+    `deleted_at` datetime(3) DEFAULT NULL COMMENT '删除时间',
+    PRIMARY KEY (`id`)
+) ENGINE = InnoDB AUTO_INCREMENT = 0 CHARSET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT '验证码表 2022-04-10';
+
+-- 登录、登出记录表
+DROP TABLE IF EXISTS `oversea_log`;
+CREATE TABLE `oversea_log`
+(
+    `id`         int(11) NOT NULL AUTO_INCREMENT COMMENT 'id',
+    `phone`      varchar(50) NOT NULL DEFAULT '' COMMENT '手机号',
+    `user_id`    int(11) NOT NULL DEFAULT 0 COMMENT '用户id',
+    `type`       tinyint(1) NOT NULL DEFAULT 1 COMMENT '用户类型：1普通用户，2公司管理员，3公司操作员',
+    `status`     tinyint(1) NOT NULL DEFAULT 1 COMMENT '状态：1正常，2异常',
+    `created_at` datetime(3) DEFAULT NULL COMMENT '创建时间',
+    `updated_at` datetime(3) DEFAULT NULL COMMENT '更新时间',
+    `deleted_at` datetime(3) DEFAULT NULL COMMENT '删除时间',
+    PRIMARY KEY (`id`)
+) ENGINE = InnoDB AUTO_INCREMENT = 0 CHARSET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT '登录、登出记录表 2022-04-10';
